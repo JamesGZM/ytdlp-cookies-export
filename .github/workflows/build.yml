@@ -59,12 +59,17 @@ jobs:
         with:
           path: artifacts
 
+      - name: Prepare release assets
+        run: |
+          mkdir -p release
+          cp artifacts/ytdlp-cookies-export-windows/ytdlp-cookies-export.exe release/ 2>/dev/null || true
+          cp artifacts/ytdlp-cookies-export-linux/ytdlp-cookies-export release/ytdlp-cookies-export-linux 2>/dev/null || true
+          cp artifacts/ytdlp-cookies-export-macos/ytdlp-cookies-export release/ytdlp-cookies-export-macos 2>/dev/null || true
+          ls -la release/
+
       - name: Upload to Release
         uses: softprops/action-gh-release@v2
         with:
-          files: |
-            artifacts/ytdlp-cookies-export-windows/*
-            artifacts/ytdlp-cookies-export-linux/*
-            artifacts/ytdlp-cookies-export-macos/*
+          files: release/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
