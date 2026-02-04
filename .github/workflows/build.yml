@@ -1,4 +1,5 @@
 # 提交后自动构建 Windows / macOS / Linux 可执行文件
+# 创建 Release 时会把构建产物挂到 Release 页面供下载
 name: Build
 
 on:
@@ -46,3 +47,24 @@ jobs:
         with:
           name: ytdlp-cookies-export-${{ matrix.name }}
           path: dist/
+
+  # 仅在有 Release 时执行：把构建产物挂到 Release 页面
+  release:
+    needs: build
+    if: github.event_name == 'release'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Upload to Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            artifacts/ytdlp-cookies-export-windows/*
+            artifacts/ytdlp-cookies-export-linux/*
+            artifacts/ytdlp-cookies-export-macos/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
