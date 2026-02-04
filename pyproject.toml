@@ -1,0 +1,19 @@
+[project]
+name = "ytdlp-cookies-export"
+version = "0.1.0"
+description = "GUI 工具：从浏览器导出 Netscape 格式 cookies.txt 供 yt-dlp 使用（仅导出，不下载）"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "yt-dlp[default]>=2025.1.1",
+]
+
+[project.scripts]
+ytdlp-cookies-export = "ytdlp_cookies_export.__main__:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ytdlp_cookies_export"]
