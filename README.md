@@ -2,6 +2,8 @@
 
 从浏览器导出 **Netscape 格式** 的 `cookies.txt`，供 [yt-dlp](https://github.com/yt-dlp/yt-dlp) 使用。**仅做导出，不下载任何视频。**
 
+**[📦 下载 Windows / macOS / Linux 可执行文件](https://github.com/JamesGZM/ytdlp-cookies-export/releases)**（进入 Release 页的 Assets 即可下载，无需安装 Python）
+
 ## 功能
 
 - GUI 选择浏览器（Chrome、Firefox、Edge、Brave 等）

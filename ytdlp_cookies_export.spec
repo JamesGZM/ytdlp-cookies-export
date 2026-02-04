@@ -3,7 +3,7 @@
 
 a = Analysis(
     ["src/ytdlp_cookies_export/__main__.py"],
-    pathex=[],
+    pathex=["src"],
     binaries=[],
     datas=[],
     hiddenimports=["yt_dlp"],
