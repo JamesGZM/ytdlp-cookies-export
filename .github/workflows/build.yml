@@ -48,10 +48,11 @@ jobs:
           name: ytdlp-cookies-export-${{ matrix.name }}
           path: dist/
 
-  # 仅在有 Release 时执行：把构建产物挂到 Release 页面
+  # 把构建产物挂到 Release 页面
+  # - 由「发布 Release」触发时：挂到该次 Release（如 v0.1.0）
+  # - 由「push 到 main」触发时：创建/更新 tag 为 latest 的 Release，供随时下载
   release:
     needs: build
-    if: github.event_name == 'release'
     runs-on: ubuntu-latest
     steps:
       - name: Download all artifacts
@@ -70,6 +71,9 @@ jobs:
       - name: Upload to Release
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ github.event_name == 'release' && github.event.release.tag_name || 'latest' }}
+          name: ${{ github.event_name == 'release' && github.event.release.name || 'Latest build (main)' }}
           files: release/*
+          draft: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
